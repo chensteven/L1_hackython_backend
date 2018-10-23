@@ -16,6 +16,7 @@ app.get('/', function(req, res) {
     res.send('Home Page');
 });
 
+// Get All Users
 app.get('/users', function(req, res) {
     // get from SQL
     console.log('/users');
@@ -26,5 +27,18 @@ app.get('/users', function(req, res) {
         console.log(rows);
         res.send(rows);
     });
+});
 
+// Get An User
+app.get('/users/:id', function(req, res) {
+    // get from SQL
+    let usernameQuery = "SELECT * FROM `users` WHERE user_id = '" + req.params.id + "'";
+    console.log(usernameQuery);
+    db.all(usernameQuery, (err, rows) => {
+        if (err) {
+            console.log('Error', err);
+        }
+        console.log(rows);
+        res.send(rows);
+    });
 });
